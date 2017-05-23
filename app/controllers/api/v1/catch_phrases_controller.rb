@@ -6,6 +6,15 @@ class Api::V1::CatchPhrasesController < ApplicationController
   end
 
   def create
-    # this should create a new catch phrase
+    @catch_phrase = CatchPhrase.new(catch_phrase_params)
+    @catch_phrase.save
+    render json: @catch_phrase
   end
+
+  private
+
+  def catch_phrase_params
+    params.require(:catch_phrase).permit(:suitable_for_work, :mood, :content, :student_id)
+  end
+
 end
